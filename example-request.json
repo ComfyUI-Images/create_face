@@ -1,0 +1,109 @@
+{
+  "input": {
+    "workflow": {
+      "1": {
+        "inputs": {
+          "ckpt_name": "realvisxlV50_v50LightningBakedvae.safetensors"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "_meta": {
+          "title": "CheckpointLoaderSimple"
+        }
+      },
+      "4": {
+        "inputs": {
+          "seed": 0,
+          "steps": 8,
+          "cfg": 1.8,
+          "sampler_name": "dpmpp_sde_gpu",
+          "scheduler": "karras",
+          "denoise": 1,
+          "model": [
+            "1",
+            0
+          ],
+          "positive": [
+            "5",
+            0
+          ],
+          "negative": [
+            "6",
+            0
+          ],
+          "latent_image": [
+            "7",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "5": {
+        "inputs": {
+          "text": "realistic photograph, closeup, symmetrical features, closed mouth, clear skin, wearing a tank top, light makeup, elegant, refined, delicate features, soft lighting, natural look, brown eyes, chiseled cheekbones, neutral face, no emotions, glossy lips, natural hair color, background blurred, 4k, highly detailed, high-quality, masterpiece, beautiful white woman with blonde hair",
+          "clip": [
+            "1",
+            1
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "Positive"
+        }
+      },
+      "6": {
+        "inputs": {
+          "text": "low quality, bad anatomy, blurry",
+          "clip": [
+            "1",
+            1
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "Negative"
+        }
+      },
+      "7": {
+        "inputs": {
+          "value": 1024
+        },
+        "class_type": "EmptyLatentImage",
+        "_meta": {
+          "title": "EmptyLatentImage"
+        }
+      },
+      "8": {
+        "inputs": {
+          "samples": [
+            "4",
+            0
+          ],
+          "vae": [
+            "1",
+            2
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "10": {
+        "inputs": {
+          "filename_prefix": "flamma/faces/face",
+          "images": [
+            "8",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      }
+    }
+  }
+}
